@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pelacak Tugas Mahasiswa</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navigasi utama">
+        <div class="brand-mark">PT</div>
+        <nav class="nav-list">
+          <a href="#dashboard" class="nav-item active">Dashboard</a>
+          <a href="#tasks" class="nav-item">Tugas</a>
+          <a href="#courses" class="nav-item">Mata Kuliah</a>
+          <a href="#timeline" class="nav-item">Timeline</a>
+        </nav>
+      </aside>
+
+      <main class="main-content" id="dashboard">
+        <header class="app-header">
+          <div>
+            <p class="eyebrow">Pelacak pribadi</p>
+            <h1>Pelacak Tugas Mahasiswa</h1>
+            <p class="header-copy">Pantau tugas kuliah, mata kuliah aktif, dan deadline terdekat dari satu halaman.</p>
+          </div>
+          <button class="primary-button" id="addTaskButton" type="button">Tambah Tugas</button>
+        </header>
+
+        <section class="panel form-panel hidden" id="taskFormPanel" aria-label="Form tugas">
+          <div class="section-heading">
+            <p class="eyebrow">Input tugas</p>
+            <h2 id="formTitle">Tambah Tugas</h2>
+          </div>
+          <form class="task-form" id="taskForm">
+            <input type="hidden" id="taskId" />
+
+            <label>
+              Judul tugas
+              <input id="taskTitle" type="text" required placeholder="Contoh: Laporan Praktikum" />
+            </label>
+
+            <label>
+              Mata kuliah
+              <input id="taskCourse" type="text" required placeholder="Contoh: Pemrograman Web" />
+            </label>
+
+            <label>
+              Deadline
+              <input id="taskDueDate" type="date" required />
+            </label>
+
+            <label>
+              Prioritas
+              <select id="taskPriority" required>
+                <option value="rendah">Rendah</option>
+                <option value="sedang">Sedang</option>
+                <option value="tinggi">Tinggi</option>
+              </select>
+            </label>
+
+            <label>
+              Status
+              <select id="taskStatus" required>
+                <option value="belum_mulai">Belum mulai</option>
+                <option value="dikerjakan">Dikerjakan</option>
+                <option value="selesai">Selesai</option>
+              </select>
+            </label>
+
+            <label class="full-field">
+              Catatan
+              <textarea id="taskNotes" rows="3" placeholder="Catatan opsional"></textarea>
+            </label>
+
+            <p class="form-error" id="formError" role="alert"></p>
+
+            <div class="form-actions">
+              <button class="primary-button" type="submit">Simpan Tugas</button>
+              <button class="ghost-button" id="cancelTaskButton" type="button">Batal</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="dashboard-grid" aria-label="Dashboard tugas">
+          <article class="panel overview-panel">
+            <div class="section-heading">
+              <p class="eyebrow">Dashboard</p>
+              <h2>Ringkasan Awal</h2>
+            </div>
+            <div class="overview-list">
+              <div>
+                <span>Total Tugas</span>
+                <strong id="totalTasks">0</strong>
+              </div>
+              <div>
+                <span>Mata Kuliah</span>
+                <strong id="totalCourses">0</strong>
+              </div>
+              <div>
+                <span>Data</span>
+                <strong>Tersimpan</strong>
+              </div>
+            </div>
+          </article>
+
+          <section class="panel" id="courses">
+            <div class="section-heading">
+              <p class="eyebrow">Kelas</p>
+              <h2>Mata Kuliah</h2>
+            </div>
+            <div class="course-list" id="courseList"></div>
+          </section>
+
+          <section class="panel" id="timeline">
+            <div class="section-heading">
+              <p class="eyebrow">Deadline</p>
+              <h2>Timeline</h2>
+            </div>
+            <ol class="timeline-list" id="timelineList"></ol>
+          </section>
+        </section>
+
+        <section class="panel task-panel" id="tasks">
+          <div class="section-heading">
+            <p class="eyebrow">Semua data</p>
+            <h2>Daftar Tugas</h2>
+          </div>
+          <div class="task-list" id="taskList"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
