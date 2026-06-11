@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelacak Tugas Mahasiswa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Pelacak Tugas Mahasiswa</p>
+        <h1>Dashboard Tugas Kuliah</h1>
+        <p class="lead">Pantau deadline, progres mata kuliah, dan tugas yang perlu dikerjakan lebih dulu.</p>
+      </div>
+      <button class="icon-button" id="themeToggle" type="button" aria-label="Ganti tema" title="Ganti tema">T</button>
+    </header>
+
+    <section class="summary-grid" aria-label="Ringkasan tugas">
+      <article class="metric metric-red">
+        <span>Terlambat</span>
+        <strong id="lateCount">0</strong>
+      </article>
+      <article class="metric metric-yellow">
+        <span>Minggu Ini</span>
+        <strong id="weekCount">0</strong>
+      </article>
+      <article class="metric metric-green">
+        <span>Selesai</span>
+        <strong id="doneCount">0</strong>
+      </article>
+      <article class="metric metric-blue">
+        <span>Persentase Selesai</span>
+        <strong id="progressValue">0%</strong>
+      </article>
+    </section>
+
+    <section class="dashboard-grid" aria-label="Dashboard utama">
+      <section class="panel focus-panel">
+        <div class="panel-header">
+          <div>
+            <h2>Daftar Fokus</h2>
+            <p id="focusHint">Tugas urgent dan prioritas tinggi muncul lebih dulu.</p>
+          </div>
+        </div>
+        <div class="focus-list" id="focusList"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>Deadline Minggu Ini</h2>
+            <p>Ringkasan tugas pada minggu berjalan.</p>
+          </div>
+        </div>
+        <div class="week-strip" id="weekStrip"></div>
+      </section>
+    </section>
+
+    <section class="panel calendar-panel" aria-label="Kalender deadline">
+      <div class="panel-header">
+        <div>
+          <h2>Kalender Mini</h2>
+          <p id="calendarSummary">Sebaran deadline pada bulan berjalan.</p>
+        </div>
+        <div class="calendar-actions" aria-label="Navigasi bulan">
+          <button class="ghost-button calendar-button" id="prevMonthButton" type="button" aria-label="Bulan sebelumnya">&lt;</button>
+          <strong id="calendarTitle"></strong>
+          <button class="ghost-button calendar-button" id="nextMonthButton" type="button" aria-label="Bulan berikutnya">&gt;</button>
+        </div>
+      </div>
+      <div class="mini-calendar" id="miniCalendar"></div>
+    </section>
+
+    <section class="workspace">
+      <form class="task-form" id="taskForm" novalidate>
+        <div class="form-title-row">
+          <div>
+            <h2 id="formTitle">Tambah Tugas</h2>
+            <p id="formSubtitle">Catat tugas baru beserta deadline dan prioritasnya.</p>
+          </div>
+          <button class="ghost-button hidden" id="cancelEditButton" type="button">Batal</button>
+        </div>
+
+        <input id="taskId" type="hidden">
+
+        <label for="taskTitle">
+          Judul tugas
+          <input id="taskTitle" type="text" placeholder="Contoh: Laporan praktikum modul 4" required>
+        </label>
+
+        <label for="courseName">
+          Mata kuliah
+          <input id="courseName" type="text" placeholder="Contoh: Basis Data" required>
+        </label>
+
+        <div class="form-row">
+          <label for="dueDate">
+            Deadline
+            <input id="dueDate" type="date" required>
+          </label>
+          <label for="priority">
+            Prioritas
+            <select id="priority" required>
+              <option value="Rendah">Rendah</option>
+              <option value="Sedang" selected>Sedang</option>
+              <option value="Tinggi">Tinggi</option>
+            </select>
+          </label>
+        </div>
+
+        <label for="status">
+          Status
+          <select id="status" required>
+            <option value="Belum mulai">Belum mulai</option>
+            <option value="Dikerjakan">Dikerjakan</option>
+            <option value="Selesai">Selesai</option>
+          </select>
+        </label>
+
+        <label for="notes">
+          Catatan
+          <textarea id="notes" rows="4" placeholder="Opsional: instruksi dosen, bahan bacaan, atau langkah berikutnya"></textarea>
+        </label>
+
+        <p class="form-error" id="formError" role="alert"></p>
+        <button class="primary-button" id="submitButton" type="submit">Tambah Tugas</button>
+      </form>
+
+      <section class="task-board" aria-label="Daftar tugas">
+        <div class="board-header">
+          <div>
+            <h2>Semua Tugas</h2>
+            <p id="listSummary">Kelola tugas dari satu daftar.</p>
+          </div>
+        </div>
+
+        <div class="filters" aria-label="Filter tugas">
+          <input id="searchInput" type="search" placeholder="Cari tugas atau mata kuliah">
+          <select id="filterSelect" aria-label="Filter daftar tugas">
+            <option value="semua">Semua</option>
+            <option value="terlambat">Terlambat</option>
+            <option value="minggu-ini">Minggu Ini</option>
+            <option value="belum-selesai">Belum Selesai</option>
+            <option value="selesai">Selesai</option>
+            <option value="prioritas-tinggi">Prioritas Tinggi</option>
+          </select>
+          <select id="courseFilter" aria-label="Filter mata kuliah">
+            <option value="semua">Semua mata kuliah</option>
+          </select>
+        </div>
+
+        <div class="task-list" id="taskList"></div>
+        <p class="empty-state" id="emptyState">Belum ada tugas yang cocok dengan filter ini.</p>
+      </section>
+    </section>
+
+    <section class="lower-grid" aria-label="Progres dan timeline">
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>Mata Kuliah Aktif</h2>
+            <p>Progres otomatis berdasarkan tugas yang tercatat.</p>
+          </div>
+        </div>
+        <div class="course-grid" id="courseGrid"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>Timeline Deadline</h2>
+            <p>Urutan tugas dari deadline terdekat.</p>
+          </div>
+        </div>
+        <div class="timeline" id="timelineList"></div>
+      </section>
+    </section>
+  </main>
+
+  <template id="taskTemplate">
+    <article class="task-card">
+      <div class="task-main">
+        <div>
+          <p class="course"></p>
+          <h3></h3>
+        </div>
+        <span class="priority-badge"></span>
+      </div>
+      <p class="task-notes"></p>
+      <div class="task-meta">
+        <span class="deadline-text"></span>
+        <span class="status-badge"></span>
+      </div>
+      <div class="task-actions">
+        <select class="status-select" aria-label="Ubah status tugas">
+          <option value="Belum mulai">Belum mulai</option>
+          <option value="Dikerjakan">Dikerjakan</option>
+          <option value="Selesai">Selesai</option>
+        </select>
+        <button class="secondary-button edit-button" type="button">Edit</button>
+        <button class="delete-button" type="button">Hapus</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,783 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --surface-soft: #eef4f7;
+  --text: #1f2937;
+  --muted: #667085;
+  --line: #dce3ea;
+  --blue: #2563eb;
+  --green: #12805c;
+  --red: #c83737;
+  --yellow: #b7791f;
+  --purple: #7c3aed;
+  --shadow: 0 14px 34px rgba(31, 41, 55, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(37, 99, 235, 0.08), rgba(246, 248, 251, 0) 300px),
+    var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+.app-shell {
+  width: min(1220px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 44px;
+}
+
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin-bottom: 8px;
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  line-height: 1.04;
+}
+
+h2 {
+  margin-bottom: 6px;
+  font-size: 1.08rem;
+}
+
+h3 {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.lead,
+.panel-header p,
+.board-header p,
+.form-title-row p,
+.empty-state,
+.empty-inline {
+  color: var(--muted);
+}
+
+.lead {
+  max-width: 680px;
+  margin-bottom: 0;
+  line-height: 1.55;
+}
+
+.icon-button,
+.primary-button,
+.secondary-button,
+.delete-button,
+.ghost-button {
+  min-height: 42px;
+  border: 0;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.icon-button {
+  width: 42px;
+  flex: 0 0 auto;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  font-size: 1.1rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.metric,
+.panel,
+.task-form,
+.task-board {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.metric {
+  border-left: 5px solid var(--blue);
+  padding: 16px;
+}
+
+.metric span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.metric strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 2rem;
+}
+
+.metric-red {
+  border-left-color: var(--red);
+}
+
+.metric-yellow {
+  border-left-color: var(--yellow);
+}
+
+.metric-green {
+  border-left-color: var(--green);
+}
+
+.metric-blue {
+  border-left-color: var(--blue);
+}
+
+.dashboard-grid,
+.lower-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.lower-grid {
+  align-items: start;
+}
+
+.panel,
+.task-form,
+.task-board {
+  padding: 18px;
+}
+
+.panel-header,
+.board-header,
+.form-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.focus-list {
+  display: grid;
+  gap: 10px;
+}
+
+.focus-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--surface-soft);
+}
+
+.focus-item strong,
+.focus-item span {
+  display: block;
+}
+
+.focus-item span:last-child {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.week-strip {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.week-day {
+  min-height: 132px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--surface);
+}
+
+.week-day.is-today {
+  border-color: var(--blue);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.week-day span,
+.week-day strong,
+.week-day small,
+.week-day p {
+  display: block;
+}
+
+.week-day span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.week-day strong {
+  margin: 4px 0 8px;
+}
+
+.week-day p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.week-day small {
+  overflow: hidden;
+  margin-top: 5px;
+  border-radius: 6px;
+  padding: 5px 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendar-panel {
+  margin-bottom: 18px;
+}
+
+.calendar-actions {
+  display: grid;
+  grid-template-columns: 36px minmax(130px, auto) 36px;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.calendar-button {
+  min-height: 36px;
+  padding: 0;
+}
+
+.mini-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.calendar-weekday {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.calendar-day {
+  min-height: 92px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px;
+  background: var(--surface);
+}
+
+.calendar-day.is-muted {
+  opacity: 0.48;
+}
+
+.calendar-day.is-today {
+  border-color: var(--blue);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.calendar-day strong,
+.calendar-task {
+  display: block;
+}
+
+.calendar-day strong {
+  margin-bottom: 6px;
+  font-size: 0.88rem;
+}
+
+.calendar-task {
+  overflow: hidden;
+  margin-top: 5px;
+  border-radius: 6px;
+  padding: 5px 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendar-more {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 18px;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  min-height: 42px;
+  padding: 0 12px;
+}
+
+textarea {
+  min-height: 96px;
+  padding-top: 10px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.22);
+  outline-offset: 2px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-error {
+  min-height: 20px;
+  margin: 0 0 12px;
+  color: var(--red);
+  font-weight: 800;
+}
+
+.primary-button {
+  width: 100%;
+  background: var(--blue);
+  color: white;
+}
+
+.secondary-button {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--blue);
+  padding: 0 14px;
+}
+
+.delete-button {
+  background: rgba(200, 55, 55, 0.12);
+  color: var(--red);
+  padding: 0 14px;
+}
+
+.ghost-button {
+  min-height: 36px;
+  background: var(--surface-soft);
+  color: var(--text);
+  padding: 0 12px;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) 180px 210px;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.task-list {
+  display: grid;
+  gap: 12px;
+}
+
+.task-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: var(--surface);
+}
+
+.task-card.is-late {
+  border-left: 5px solid var(--red);
+}
+
+.task-card.is-today {
+  border-left: 5px solid var(--yellow);
+}
+
+.task-card.is-done {
+  opacity: 0.76;
+}
+
+.task-main,
+.task-meta,
+.task-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.task-main {
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.task-meta,
+.task-actions {
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.task-notes {
+  margin: 12px 0 0;
+  color: var(--muted);
+  line-height: 1.48;
+}
+
+.course {
+  margin-bottom: 5px;
+  color: var(--blue);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.deadline-text {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.status-select {
+  max-width: 180px;
+}
+
+.priority-badge,
+.status-badge,
+.mini-priority {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  min-height: 28px;
+  padding: 0 10px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.priority-high {
+  background: rgba(200, 55, 55, 0.14);
+  color: var(--red);
+}
+
+.priority-medium {
+  background: rgba(183, 121, 31, 0.16);
+  color: var(--yellow);
+}
+
+.priority-low {
+  background: rgba(18, 128, 92, 0.14);
+  color: var(--green);
+}
+
+.status-late {
+  background: rgba(200, 55, 55, 0.14);
+  color: var(--red);
+}
+
+.status-progress {
+  background: rgba(37, 99, 235, 0.12);
+  color: var(--blue);
+}
+
+.status-done {
+  background: rgba(18, 128, 92, 0.14);
+  color: var(--green);
+}
+
+.status-idle {
+  background: rgba(102, 112, 133, 0.14);
+  color: var(--muted);
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.course-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.course-card p {
+  margin: 8px 0 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.course-card strong {
+  display: block;
+  margin-top: 10px;
+}
+
+.course-mint {
+  background: #edf8f3;
+}
+
+.course-blue {
+  background: #eef5ff;
+}
+
+.course-peach {
+  background: #fff4e8;
+}
+
+.course-lavender {
+  background: #f4f0ff;
+}
+
+.course-rose {
+  background: #fff0f4;
+}
+
+.course-lime {
+  background: #f2f8e9;
+}
+
+.progress-track {
+  overflow: hidden;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(102, 112, 133, 0.16);
+}
+
+.progress-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--green);
+}
+
+.timeline {
+  display: grid;
+  gap: 12px;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 12px;
+  position: relative;
+}
+
+.timeline-item:not(:last-child)::before {
+  position: absolute;
+  top: 18px;
+  bottom: -18px;
+  left: 8px;
+  width: 2px;
+  background: var(--line);
+  content: "";
+}
+
+.timeline-item p {
+  margin: 4px 0 8px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.timeline-item.is-done {
+  opacity: 0.68;
+}
+
+.timeline-dot {
+  position: relative;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  border: 3px solid var(--surface);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.empty-state,
+.empty-inline {
+  margin-bottom: 0;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+body.dark {
+  color-scheme: dark;
+  --bg: #10151d;
+  --surface: #18202b;
+  --surface-soft: #212c3a;
+  --text: #eef2f7;
+  --muted: #aab4c1;
+  --line: #303b4a;
+  --shadow: 0 16px 42px rgba(0, 0, 0, 0.24);
+}
+
+body.dark .course-mint,
+body.dark .course-blue,
+body.dark .course-peach,
+body.dark .course-lavender,
+body.dark .course-rose,
+body.dark .course-lime {
+  background: var(--surface-soft);
+}
+
+@media (max-width: 980px) {
+  .summary-grid,
+  .dashboard-grid,
+  .workspace,
+  .lower-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .workspace {
+    align-items: stretch;
+  }
+
+  .task-form {
+    order: 2;
+  }
+
+  .task-board {
+    order: 1;
+  }
+
+  .week-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .app-shell {
+    width: min(100% - 20px, 1220px);
+    padding-top: 18px;
+  }
+
+  .topbar,
+  .panel-header,
+  .board-header,
+  .form-title-row,
+  .task-main,
+  .task-meta,
+  .task-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .summary-grid,
+  .dashboard-grid,
+  .workspace,
+  .lower-grid,
+  .course-grid,
+  .form-row,
+  .week-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .icon-button {
+    align-self: flex-start;
+  }
+
+  .status-select {
+    max-width: none;
+  }
+
+  .week-day {
+    min-height: auto;
+  }
+
+  .calendar-actions {
+    width: 100%;
+  }
+
+  .mini-calendar {
+    gap: 5px;
+  }
+
+  .calendar-day {
+    min-height: 72px;
+    padding: 6px;
+  }
+
+  .calendar-task {
+    padding: 4px 5px;
+  }
+}
