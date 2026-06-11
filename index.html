@@ -25,7 +25,86 @@
             <h1>Pelacak Tugas Mahasiswa</h1>
             <p class="header-copy">Pantau tugas kuliah, mata kuliah aktif, dan deadline terdekat dari satu halaman.</p>
           </div>
+          <button class="primary-button" id="addTaskButton" type="button">Tambah Tugas</button>
         </header>
+
+        <section class="panel form-panel hidden" id="taskFormPanel" aria-label="Form tugas">
+          <div class="section-heading">
+            <p class="eyebrow">Input tugas</p>
+            <h2 id="formTitle">Tambah Tugas</h2>
+          </div>
+          <form class="task-form" id="taskForm">
+            <input type="hidden" id="taskId" />
+
+            <label>
+              Judul tugas
+              <input id="taskTitle" type="text" required placeholder="Contoh: Laporan Praktikum" />
+            </label>
+
+            <label>
+              Mata kuliah
+              <input id="taskCourse" type="text" required placeholder="Contoh: Pemrograman Web" />
+            </label>
+
+            <label>
+              Deadline
+              <input id="taskDueDate" type="date" required />
+            </label>
+
+            <label>
+              Prioritas
+              <select id="taskPriority" required>
+                <option value="rendah">Rendah</option>
+                <option value="sedang">Sedang</option>
+                <option value="tinggi">Tinggi</option>
+              </select>
+            </label>
+
+            <label>
+              Status
+              <select id="taskStatus" required>
+                <option value="belum_mulai">Belum mulai</option>
+                <option value="dikerjakan">Dikerjakan</option>
+                <option value="selesai">Selesai</option>
+              </select>
+            </label>
+
+            <label class="full-field">
+              Catatan
+              <textarea id="taskNotes" rows="3" placeholder="Catatan opsional"></textarea>
+            </label>
+
+            <p class="form-error" id="formError" role="alert"></p>
+
+            <div class="form-actions">
+              <button class="primary-button" type="submit">Simpan Tugas</button>
+              <button class="ghost-button" id="cancelTaskButton" type="button">Batal</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="summary-grid" aria-label="Ringkasan progres dan urgensi">
+          <article class="summary-card alert">
+            <span class="summary-label">Terlambat</span>
+            <strong id="overdueTasks">0</strong>
+            <p class="summary-hint">Belum selesai dan melewati deadline</p>
+          </article>
+          <article class="summary-card">
+            <span class="summary-label">Minggu Ini</span>
+            <strong id="weekTasks">0</strong>
+            <p class="summary-hint">Deadline pada minggu berjalan</p>
+          </article>
+          <article class="summary-card success">
+            <span class="summary-label">Selesai</span>
+            <strong id="completedTasks">0</strong>
+            <p class="summary-hint">Tugas dengan status selesai</p>
+          </article>
+          <article class="summary-card">
+            <span class="summary-label">Persentase Selesai</span>
+            <strong id="completionPercentage">0%</strong>
+            <p class="summary-hint">Dari seluruh tugas</p>
+          </article>
+        </section>
 
         <section class="dashboard-grid" aria-label="Dashboard tugas">
           <article class="panel overview-panel">
