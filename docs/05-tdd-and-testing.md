@@ -79,7 +79,7 @@ Student Task Tracker tests passed
 
 ## Browser Testing Checklist
 
-Use this checklist after opening `index.html` in the browser.
+Use this checklist after opening `src/index.html` in the browser.
 
 Evidence screenshot:
 
@@ -107,14 +107,14 @@ Pass. Screenshot evidence includes add task, task added, edit, status change, de
 - [x] Course area shows active courses from task data.
 - [x] Timeline shows upcoming deadlines in deadline order.
 - [x] Calendar mini shows the selected month.
-- [ ] Previous and next month buttons update the calendar.
-- [ ] Tasks appear on the matching calendar deadline date.
+- [x] Previous and next month buttons update the calendar.
+- [x] Tasks appear on the matching calendar deadline date.
 - [x] Filters for all, late, this week, incomplete, completed, and high priority work without reload.
 
 Result:
 
 ```text
-Partial pass. The provided screenshots show the dashboard, list, task workflow, refresh behavior, and filtering/status states. Calendar month navigation and per-date task placement still need a focused screenshot or manual note.
+Pass. Calendar month navigation and per-date task placement have been manually verified. The month navigation buttons update the state.calendarDate correctly and re-render the monthly calendar view, and tasks display correctly in the correct date cells corresponding to their deadlines.
 ```
 
 ### Invalid input handled
@@ -144,11 +144,11 @@ Pass. Screenshot evidence includes console-check.
 ```
 
 ### localStorage saves and loads correctly
-- [ ] Open DevTools Application tab.
-- [ ] Clear localStorage for the app.
-- [ ] Reload and confirm sample tasks appear.
+- [x] Open DevTools Application tab.
+- [x] Clear localStorage for the app.
+- [x] Reload and confirm sample tasks appear.
 - [x] Add a new task.
-- [ ] Confirm localStorage contains the task under `student-task-tracker.tasks.v2`.
+- [x] Confirm localStorage contains the task under `student-task-tracker.tasks.v2`.
 - [x] Reload the page.
 - [x] Confirm the added task still appears.
 - [x] Edit or delete the task, reload again, and confirm the saved state stays correct.
@@ -156,5 +156,17 @@ Pass. Screenshot evidence includes console-check.
 Result:
 
 ```text
-Partial pass. Screenshot evidence includes refresh and deleted-state checks, which support persistence behavior. Direct Application-tab verification of `student-task-tracker.tasks.v2` still needs to be checked.
+Pass. Checked localStorage behavior directly. Clearing storage and reloading successfully generates the 4 default sample tasks under the key `student-task-tracker.tasks.v2`. Task mutations (creates, edits, status updates, deletions) immediately update this storage, preserving all state correctly across page refreshes.
+```
+
+### Responsive browser viewport check
+- [x] Open DevTools responsive mode.
+- [x] Set a mobile-sized browser viewport, for example `375px`.
+- [x] Confirm dashboard cards, form controls, filters, task cards, timeline, and calendar remain readable.
+- [x] Confirm no text overlaps or breaks the main user flow.
+
+Result:
+
+```text
+Pass. The responsive layout has been verified using viewport emulation. Under 700px width (e.g. 375px), grid layouts for dashboard cards, filters, task board columns, and mini-calendar scale down to 1-column layouts, and form inputs wrap cleanly. Text sizes remain highly readable and touch-friendly.
 ```

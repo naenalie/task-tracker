@@ -26,13 +26,13 @@ Project ini memakai plain HTML, CSS, dan JavaScript. Tidak perlu install depende
 1. Buka folder project:
 
    ```bash
-   cd task-tracker/src/src
+   cd task-tracker
    ```
 
 2. Buka file berikut di browser:
 
    ```text
-   index6.html
+   src/index.html
    ```
 
 ### Run dengan local server
@@ -40,14 +40,14 @@ Project ini memakai plain HTML, CSS, dan JavaScript. Tidak perlu install depende
 Alternatifnya, jalankan local server dari folder project:
 
 ```bash
-cd task-tracker/src/src
+cd task-tracker
 python -m http.server 8000
 ```
 
 Lalu buka:
 
 ```text
-http://localhost:8000/index6.html
+http://localhost:8000/src/index.html
 ```
 
 ## Usage Guide
@@ -106,18 +106,34 @@ docs/05-tdd-and-testing.md
 ## Project Structure
 
 ```text
-src/
-  index6.html
-  style.css
-  app.js
-  README.md
-  assets/
-    screenshots/
-      browser-testing-evidence.png
-  docs/
-    05-tdd-and-testing.md
-  tests/
-    app.test.js
+task-tracker/
+├── README.md
+├── docs/
+│   ├── 00-submission-checklist.md
+│   ├── 01-requirements.md
+│   ├── 02-prd.md
+│   ├── 03-vertical-slice-issues.md
+│   ├── 04-design.md
+│   ├── 05-tdd-and-testing.md
+│   ├── 06-reflection.md
+│   └── 07-github-workflow.md
+├── src/
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+├── tests/
+│   └── app.test.js
+├── assets/
+│   └── screenshots/
+│       ├── browser-testing-evidence.png
+│       ├── calendar-view.png
+│       ├── console-check.png
+│       ├── localstorage-devtools.png
+│       └── ...
+└── .github/
+    ├── ISSUE_TEMPLATE/
+    │   └── vertical-slice.md
+    └── pull_request_template.md
 ```
 
 ## License
