@@ -1,22 +1,33 @@
-# Summary
+## Summary
+What does this PR change?
 
+## Related Issue
+Closes #...
+
+## Behavior implemented
+What user-visible behavior does this PR deliver?
+
+## Changes made
 - 
 
-## Linked Issue
+## TDD evidence
+- [ ] RED: failing test shown
+- [ ] GREEN: passing test shown
+- [ ] REFACTOR: improvement explained
 
-Closes #
+## Test command
+```bash
+node tests/app.test.js
+```
 
-## What Changed
+## Browser verification
+- [ ] Feature tested manually
+- [ ] Console checked
+- [ ] Responsive layout checked
+- [ ] Edge cases checked
 
-- 
+## AI usage
+How did AI help? What did you verify manually?
 
-## Testing
-
-- [ ] Ran automated tests
-- [ ] Verified in browser
-- [ ] Checked mobile layout
-- [ ] Checked localStorage behavior
-
-## AI Usage
-
-Describe how AI helped and what was manually reviewed.
+## Screenshots
+Add screenshots if relevant.
