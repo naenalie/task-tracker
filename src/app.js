@@ -633,8 +633,69 @@
     });
   }
 
+  function renderLargeCalendar() {
+    const calendar = $("#largeCalendar");
+    const title = $("#largeCalendarTitle");
+    const summary = $("#largeCalendarSummary");
+    if (!calendar || !title || !summary) return;
+
+    const monthDate = state.calendarDate;
+    const monthName = new Intl.DateTimeFormat("id-ID", {
+      month: "long",
+      year: "numeric",
+    }).format(monthDate);
+    const days = getMonthCalendarDays(monthDate);
+    const monthTasks = state.tasks.filter((task) => {
+      const date = parseLocalDate(task.dueDate);
+      return date.getFullYear() === monthDate.getFullYear() && date.getMonth() === monthDate.getMonth();
+    });
+    const tasksByDate = new Map();
+
+    state.tasks.forEach((task) => {
+      if (!tasksByDate.has(task.dueDate)) tasksByDate.set(task.dueDate, []);
+      tasksByDate.get(task.dueDate).push(task);
+    });
+
+    calendar.innerHTML = "";
+    title.textContent = monthName;
+    summary.textContent = `${monthTasks.length} deadline tercatat pada ${monthName}.`;
+
+    ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"].forEach((dayName) => {
+      const weekday = document.createElement("span");
+      weekday.className = "calendar-weekday";
+      weekday.textContent = dayName;
+      calendar.appendChild(weekday);
+    });
+
+    days.forEach((day) => {
+      const item = document.createElement("article");
+      const tasks = sortDeadlineTasks(tasksByDate.get(day.dateKey) || []);
+      item.className = "calendar-day";
+      item.classList.toggle("is-muted", !day.isCurrentMonth);
+      item.classList.toggle("is-today", day.isToday);
+      item.innerHTML = `<strong>${day.date.getDate()}</strong>`;
+
+      tasks.slice(0, 3).forEach((task) => {
+        const label = document.createElement("span");
+        label.className = `calendar-task ${getPriorityClass(task.priority)}`;
+        label.textContent = task.title;
+        item.appendChild(label);
+      });
+
+      if (tasks.length > 3) {
+        const more = document.createElement("p");
+        more.className = "calendar-more";
+        more.textContent = `+${tasks.length - 3} lagi`;
+        item.appendChild(more);
+      }
+
+      calendar.appendChild(item);
+    });
+  }
+
   function renderWeekStrip() {
     const strip = $("#weekStrip");
+    if (!strip) return;
     const week = getWeekRange();
     const todayKey = toDateInputValue(new Date());
     strip.innerHTML = "";
@@ -677,6 +738,7 @@
     renderCourses();
     renderTimeline();
     renderMiniCalendar();
+    renderLargeCalendar();
     renderWeekStrip();
   }
 
@@ -715,6 +777,13 @@
 
     $("#searchInput").addEventListener("input", (event) => {
       state.search = event.target.value.trim().toLowerCase();
+      $("#globalSearchInput").value = event.target.value;
+      renderTaskList();
+    });
+
+    $("#globalSearchInput").addEventListener("input", (event) => {
+      state.search = event.target.value.trim().toLowerCase();
+      $("#searchInput").value = event.target.value;
       renderTaskList();
     });
 
@@ -731,11 +800,25 @@
     $("#prevMonthButton").addEventListener("click", () => {
       state.calendarDate = new Date(state.calendarDate.getFullYear(), state.calendarDate.getMonth() - 1, 1);
       renderMiniCalendar();
+      renderLargeCalendar();
     });
 
     $("#nextMonthButton").addEventListener("click", () => {
       state.calendarDate = new Date(state.calendarDate.getFullYear(), state.calendarDate.getMonth() + 1, 1);
       renderMiniCalendar();
+      renderLargeCalendar();
+    });
+
+    $("#largePrevMonthButton").addEventListener("click", () => {
+      state.calendarDate = new Date(state.calendarDate.getFullYear(), state.calendarDate.getMonth() - 1, 1);
+      renderMiniCalendar();
+      renderLargeCalendar();
+    });
+
+    $("#largeNextMonthButton").addEventListener("click", () => {
+      state.calendarDate = new Date(state.calendarDate.getFullYear(), state.calendarDate.getMonth() + 1, 1);
+      renderMiniCalendar();
+      renderLargeCalendar();
     });
 
     $("#themeToggle").addEventListener("click", () => {
@@ -745,6 +828,28 @@
       } catch {
         // Theme preference is optional.
       }
+    });
+
+    // Tab switcher logic
+    const tabs = [
+      { button: "#tab-home-btn", panel: "#tab-home" },
+      { button: "#tab-tasks-btn", panel: "#tab-tasks" },
+      { button: "#tab-calendar-btn", panel: "#tab-calendar" }
+    ];
+
+    tabs.forEach((tab) => {
+      $(tab.button).addEventListener("click", () => {
+        tabs.forEach((t) => {
+          $(t.button).classList.remove("active");
+          $(t.panel).classList.remove("active-panel");
+        });
+        $(tab.button).classList.add("active");
+        $(tab.panel).classList.add("active-panel");
+
+        if (tab.panel === "#tab-calendar") {
+          renderLargeCalendar();
+        }
+      });
     });
   }
 
