@@ -60,7 +60,7 @@ I also learned how useful small helper functions are in plain JavaScript. Functi
 
 ## What I Would Do Differently
 
-If I worked on this project again, I would define the file naming earlier so the main HTML file has a clearer name such as `index.html` instead of `index6.html`.
+If I worked on this project again, I would define the file naming earlier. We originally had the main HTML file named `index6.html` but we successfully refactored the project structure to rename it to `index.html` inside the `src/` directory to match standard naming conventions.
 
 I would also separate the JavaScript into smaller modules if the project became larger. For example, storage logic, date helpers, rendering functions, and task logic could each have their own file.
 
